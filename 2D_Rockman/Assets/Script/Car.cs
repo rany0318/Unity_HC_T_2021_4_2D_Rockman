@@ -123,6 +123,9 @@ public class Car : MonoBehaviour
         //有多個選填式參數
         Drive(70, "閃電");                            // 錯誤 - 把特效放在音效上
         Drive(70, effect: "閃電");                     // 正確 - 指定特效參數
+
+        float bmi = BMI(1.68f, 60);
+        print("計算後的 BMI：" + bmi);
     }
 
     //更新事件執行時間點與次數：開始事件後以每秒約六十次執行 60FPS
@@ -188,6 +191,17 @@ public class Car : MonoBehaviour
         print("開車時數：" + speed);
         print("開車音效：" + sound);
         print("特效： " + effect);
+    }
+
+    /// <summary>
+    /// BMI值計算方法
+    /// </summary>
+    /// <param name="height"></param>
+    /// <param name="weight"></param>
+    /// <returns></returns>
+    private float BMI(float height, float weight)
+    {
+        return weight / (height * height);
     }
     #endregion
 }
