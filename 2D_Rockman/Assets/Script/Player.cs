@@ -24,13 +24,35 @@ public class Player : MonoBehaviour
     private Animator ani;
     #endregion
 
+    #region 事件
+    private void Start()
+    {
+        // 利用程式取得原件
+        // 傳回原件 取得原件<元件名稱>() - <泛型>
+        // 取得跟此腳本同一層的元件
+        rig = GetComponent<Rigidbody2D>();
+    }
+
+
+    private void Update()
+    {
+        Move();   
+    }
+    #endregion
+
     #region 方法
     /// <summary>
     /// 移動
     /// </summary>
     private void Move()
     {
-
+        //1.要抓到玩家按下左右鍵的資訊 Input
+        float h = Input.GetAxis("Horizontal");
+        print("水平的值：" + h);
+        //2.使用左右鍵的資訊控制角色移動
+        //剛體.加速度 = 二維向量(水平 * 速度 *一幀的時間，指定回原本的 Y軸加速度)
+        //一幀的時間解決不同效能的裝置速度差問題
+        rig.velocity = new Vector2(h * speed * Time.deltaTime, rig.velocity.y);
     }
 
     /// <summary>
@@ -46,7 +68,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Fire()
     {
-
+        //如果 玩家 按下 空白鍵 就 往上跳躍
+        //判斷式 C#
     }
 
     /// <summary>
