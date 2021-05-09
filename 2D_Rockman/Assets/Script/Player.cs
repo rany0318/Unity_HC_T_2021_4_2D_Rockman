@@ -3,9 +3,9 @@
 public class Player : MonoBehaviour
 {
     #region 事件
-    [Header("移動速度"),Range(0, 1000)]
+    [Header("移動速度"), Range(0, 1000)]
     public float speed = 10.5f;
-    [Header("跳要高度"),Range(0, 3000)]
+    [Header("跳要高度"), Range(0, 3000)]
     public int jump = 100;
     [Range(0, 200)]
     public float hp = 100;
@@ -33,10 +33,25 @@ public class Player : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
     }
 
-
+    //一秒約執行 60 次
     private void Update()
     {
-        Move();   
+        Move();
+        Jump();
+    }
+
+    [Header("判斷地板碰撞的位移與半徑")]
+    public Vector3 groundoffset;
+    public float groundRadius = 0.2f;
+
+    //繪製圖示 - 輔助編輯時的圖形線條
+    private void OnDrawGizmos()
+    {
+        //1.指定顏色
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        //2.繪製圖形
+        //transform 可以抓到此腳本同一層的變形元件
+        Gizmos.DrawSphere(transform.position + groundoffset, groundRadius);
     }
     #endregion
 
@@ -60,7 +75,15 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Jump()
     {
+        //如果 玩家 按下 空白鍵 就 往上跳躍
+        //判斷式 C#
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //剛體.添加推力(二維向量)
+            rig.AddForce(new Vector2(0,jump));
+        }
 
+        
     }
 
     /// <summary>
@@ -68,8 +91,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Fire()
     {
-        //如果 玩家 按下 空白鍵 就 往上跳躍
-        //判斷式 C#
+       
     }
 
     /// <summary>
